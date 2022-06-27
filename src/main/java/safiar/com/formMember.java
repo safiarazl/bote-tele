@@ -199,4 +199,5 @@ public class formMember extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable tbl_member;
     // End of variables declaration//GEN-END:variables
+
 }

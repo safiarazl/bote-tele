@@ -2,7 +2,6 @@ package safiar.com;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -18,21 +17,23 @@ public class botClassTA extends TelegramLongPollingBot {
     ResultSet RsBrg;
     Statement stm;
     Boolean edit = false;
+
     private Object[][] dataTable = null;
     @Override
     public String getBotUsername() {
-        return "testing_Rahadianbot";
+        return "vallmy_bot";
     }
 
     @Override
     public String getBotToken() {
-        return "5520989244:AAHrpfqQPy3IT4NnUuNNmIdAmeVZUH6ge4k";
+        return "5415553203:AAHKr1s1aTT2B06zmUpNLvndrZaO4mRuZa4";
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         SendMessage message=new SendMessage();
+        SendMessage message1=new SendMessage();
         message.setChatId(update.getMessage().getChatId());
         String daftar = "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar";
         Update msg = update;
@@ -56,7 +57,21 @@ public class botClassTA extends TelegramLongPollingBot {
         //______________________________________________Command_________________________________________//
         String command;
         command = update.getMessage().getText();
+//        System.out.println("ini ISINILAI" + update.getChatMember().getChat().getFirstName());
+        System.out.println("ini isi nilai command: " + command);
         switch (command) {
+            case "dian" -> {
+                //lopping kirim by id chat
+                for (int i = 0; i < 3; i++) {
+                    try {
+                        message1.setChatId(cbID().get(i));
+                        message1.setText("Hai, ini dia yang dian");
+                        execute(message1);
+                    } catch (TelegramApiException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
             case "start" -> {
                 System.out.println(update.getMessage() + "BEEBOoo.. 0o0 Halo Nama Saya BotTele_Rahadian-0.1 ");
                 message.setText("BEEBOoo.. 0o0 Halo Nama Saya BotTele_Rahadian-0.1 🤖");
@@ -89,6 +104,7 @@ public class botClassTA extends TelegramLongPollingBot {
                 };
                 simpan(data);
                 String pesan = "Terimakasih telah mendaftar ";
+//                msg.getChatMember();
                 msg.getMessage().getChatId();
                 message.setChatId(msg.getMessage().getChatId());
                 message.setText(pesan);
@@ -96,7 +112,6 @@ public class botClassTA extends TelegramLongPollingBot {
                 System.out.println("Pesan gagal dikirim: " + e);
             }
         }
-
 
 
 //      JANGAN DIHAPUS/KOMEN UNTUK NGIRIM PESAN; SETTEXT UNTUK SETUP PESAN
@@ -108,6 +123,7 @@ public class botClassTA extends TelegramLongPollingBot {
         }
     }
 
+
     public botClassTA() {
         try{
             KoneksiMysql kon = new KoneksiMysql("localhost","root","","bot-tele");
@@ -117,6 +133,27 @@ public class botClassTA extends TelegramLongPollingBot {
         } catch (Exception e){
             System.out.println("Error botClass : " + e);
         }
+    }
+
+    public ArrayList<Long> cbID(){
+        try{
+            stm=Con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE,ResultSet.TYPE_FORWARD_ONLY);
+            ResultSet rs=stm.executeQuery("select id from user");
+            rs.beforeFirst();
+            //get array of id
+            ArrayList<Long> id = new ArrayList<>();
+            while(rs.next()){
+                id.add(rs.getLong("id"));
+            }
+            return id;
+//            while(rs.next()){
+////                System.out.println(rs.getString(1));
+//                return rs.getLong(1);
+//            }
+        }catch(SQLException e){
+            System.out.println("Error : "+e);
+        }
+        return null;
     }
 
     public Object baca_data(){
@@ -149,6 +186,8 @@ public class botClassTA extends TelegramLongPollingBot {
 //        return null;
 
     }
+
+
 
     public void simpan(String [] data) {
         String nama = data[0], id = data[1];
