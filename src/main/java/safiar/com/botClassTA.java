@@ -187,8 +187,6 @@ public class botClassTA extends TelegramLongPollingBot {
 
     }
 
-
-
     public void simpan(String [] data) {
         String nama = data[0], id = data[1];
         try{

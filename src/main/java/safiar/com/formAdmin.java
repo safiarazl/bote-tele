@@ -4,6 +4,12 @@
  */
 package safiar.com;
 
+import org.apache.log4j.BasicConfigurator;
+
+import javax.swing.*;
+import javax.swing.text.View;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author Safiar
@@ -26,55 +32,40 @@ public class formAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jDialog2 = new javax.swing.JDialog();
-        bBroadcast = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        bMember = new javax.swing.JButton();
-        bAuto = new javax.swing.JButton();
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
-        jDialog2.getContentPane().setLayout(jDialog2Layout);
-        jDialog2Layout.setHorizontalGroup(
-            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog2Layout.setVerticalGroup(
-            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        bMembers = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        bKeluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        bBroadcast.setText("Broadcast");
-        bBroadcast.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
+        jLabel1.setText("Telegram Bot");
+
+        jButton1.setText("Chat");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bBroadcastActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
-        jLabel1.setText("TA Telegram Bot By.");
+        jButton2.setText("Broadcast");
 
-        bMember.setText("Member");
-
-        bAuto.setText("Auto");
-        bAuto.setMaximumSize(new java.awt.Dimension(75, 22));
-        bAuto.setMinimumSize(new java.awt.Dimension(75, 22));
-        bAuto.addActionListener(new java.awt.event.ActionListener() {
+        bMembers.setText("Members");
+        bMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAutoActionPerformed(evt);
+                bMembersActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("History");
+
+        bKeluar.setText("LogOut");
+        bKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bKeluarActionPerformed(evt);
             }
         });
 
@@ -85,38 +76,61 @@ public class formAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bMember)
-                        .addGap(18, 18, 18)
-                        .addComponent(bBroadcast, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(bKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bBroadcast, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bMember, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bBroadcastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBroadcastActionPerformed
+    private void bKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKeluarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bBroadcastActionPerformed
+        dispose();
+    }//GEN-LAST:event_bKeluarActionPerformed
 
-    private void bAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAutoActionPerformed
+    private void bMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMembersActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bAutoActionPerformed
+        new formMember().setVisible(true);
+    }//GEN-LAST:event_bMembersActionPerformed
+
+    private void jButton1ActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+//        new formChatBot().setVisible(true);
+//        panggil form chat bot
+        BotChat botChat = new BotChat();
+        formChatBot fc = new formChatBot();
+        fc.setVisible(true);
+        fc.setLocationRelativeTo(null);
+        fc.setResizable(false);
+        fc.setTitle("Chat Bot");
+        fc.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,16 +163,17 @@ public class formAdmin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new formAdmin().setVisible(true);
+                BasicConfigurator.configure();
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAuto;
-    private javax.swing.JButton bBroadcast;
-    private javax.swing.JButton bMember;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JDialog jDialog2;
+    private javax.swing.JButton bKeluar;
+    private javax.swing.JButton bMembers;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
