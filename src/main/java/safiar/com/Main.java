@@ -11,8 +11,6 @@ public class Main {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             telegramBotsApi.registerBot(new botClassTA());
-//            telegramBotsApi.registerBot(new BotChat());
-//            telegramBotsApi.registerBot(new formChat());
 //            telegramBotsApi.registerBot(new DirectionsHandlers());
 //            telegramBotsApi.registerBot(new RaeHandlers());
 //            telegramBotsApi.registerBot(new WeatherHandlers());

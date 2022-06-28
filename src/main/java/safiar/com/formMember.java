@@ -7,7 +7,7 @@ package safiar.com;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import org.checkerframework.common.returnsreceiver.qual.This;
 
 /**
  *
@@ -25,6 +25,7 @@ public class formMember extends javax.swing.JFrame {
     }
 
     Connection Con;
+    String id;
     ResultSet RsBrg;
     Statement stm;
     Boolean edit = false;
@@ -69,6 +70,14 @@ public class formMember extends javax.swing.JFrame {
 //        return null;
         
     }
+    private void hapus(String id){
+        try{
+            String zsql="DELETE FROM `user` WHERE `id` = '" + id + "'";
+            stm.executeUpdate(zsql);
+        }catch(SQLException e){
+            System.out.println("Error : "+e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,11 +87,26 @@ public class formMember extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_member = new javax.swing.JTable();
-        btnDel = new javax.swing.JButton();
-        btnBatal = new javax.swing.JButton();
+        bHapus = new javax.swing.JButton();
+        bKembali = new javax.swing.JButton();
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,19 +120,29 @@ public class formMember extends javax.swing.JFrame {
                 "Nama", "Id"
             }
         ));
+        tbl_member.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_memberMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_member);
 
-        btnDel.setText("Delete");
-        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+        bHapus.setText("Hapus Member");
+        bHapus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDelMouseClicked(evt);
+                bHapusMouseClicked(evt);
+            }
+        });
+        bHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bHapusActionPerformed(evt);
             }
         });
 
-        btnBatal.setText("Batal");
-        btnBatal.addActionListener(new java.awt.event.ActionListener() {
+        bKembali.setText("Kembali");
+        bKembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBatalActionPerformed(evt);
+                bKembaliActionPerformed(evt);
             }
         });
 
@@ -123,10 +157,10 @@ public class formMember extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnDel)
-                            .addComponent(btnBatal))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bHapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bKembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,9 +171,9 @@ public class formMember extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBatal)
+                        .addComponent(bHapus)
+                        .addGap(18, 18, 18)
+                        .addComponent(bKembali)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -147,16 +181,36 @@ public class formMember extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseClicked
+    private void bHapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bHapusMouseClicked
         // TODO add your handling code here:
-        tbl_member.setModel(new DefaultTableModel(dataTable,header));
-        baca_data();
-    }//GEN-LAST:event_btnDelMouseClicked
+    }//GEN-LAST:event_bHapusMouseClicked
 
-    private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
+    private void bHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHapusActionPerformed
         // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_btnBatalActionPerformed
+        try{
+            String zsql="delete from user where id='" + id + "'";
+            stm.executeUpdate(zsql);
+            baca_data();
+        }catch(SQLException e){
+            System.out.println("Error : "+e);
+        }
+        baca_data();
+    }//GEN-LAST:event_bHapusActionPerformed
+
+    private void getID() {
+        int row=tbl_member.getSelectedRow();
+        id = (String)tbl_member.getValueAt(row,1);
+    }
+    
+    private void tbl_memberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_memberMouseClicked
+        // TODO add your handling code here:
+        getID();
+    }//GEN-LAST:event_tbl_memberMouseClicked
+
+    private void bKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKembaliActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_bKembaliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,10 +248,12 @@ public class formMember extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBatal;
-    private javax.swing.JButton btnDel;
+    private javax.swing.JButton bHapus;
+    private javax.swing.JButton bKembali;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTable tbl_member;
     // End of variables declaration//GEN-END:variables
 

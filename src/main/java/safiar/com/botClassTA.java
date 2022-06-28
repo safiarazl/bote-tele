@@ -29,7 +29,6 @@ public class botClassTA extends TelegramLongPollingBot {
         return "5415553203:AAHKr1s1aTT2B06zmUpNLvndrZaO4mRuZa4";
     }
 
-    @Override
     public void onUpdateReceived(Update update) {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         SendMessage message=new SendMessage();
@@ -60,7 +59,7 @@ public class botClassTA extends TelegramLongPollingBot {
 //        System.out.println("ini ISINILAI" + update.getChatMember().getChat().getFirstName());
         System.out.println("ini isi nilai command: " + command);
         switch (command) {
-            case "dian" -> {
+            case "broadcast" -> {
                 //lopping kirim by id chat
                 for (int i = 0; i < 3; i++) {
                     try {
@@ -87,6 +86,24 @@ public class botClassTA extends TelegramLongPollingBot {
                 System.out.println(update.getMessage() + "Saya dibuat oleh : " + update.getMessage().getFrom().getFirstName() + " " + update.getMessage().getFrom().getLastName() + " NIM : A11.2020.12724");
                 message.setText("Saya dibuat oleh : " + update.getMessage().getFrom().getFirstName() + " " + update.getMessage().getFrom().getLastName() + " NIM : A11.2020.12724");
             }
+            case "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar" -> {
+                try {
+                    String nama = msg.getMessage().getFrom().getFirstName();
+                    String id = msg.getMessage().getFrom().getId().toString();
+                    String [] data = {
+                            nama,
+                            id
+                    };
+                    simpan(data);
+                    String pesan = "Terimakasih telah mendaftar ";
+    //                msg.getChatMember();
+                    msg.getMessage().getChatId();
+                    message.setChatId(msg.getMessage().getChatId());
+                    message.setText(pesan);
+                } catch (Exception e) {
+                    System.out.println("Pesan gagal dikirim: " + e);
+                }
+            }
             default -> {
                 System.out.println(update.getMessage() + "Saya tidak mengerti perintah yang anda tulis");
                 message.setText("Saya tidak mengerti perintah yang anda tulis");
@@ -94,24 +111,6 @@ public class botClassTA extends TelegramLongPollingBot {
         }
 
 //          UNTUK DAFTAR MEMBER
-        if(msg.getMessage().getText().equals(daftar)){
-            try {
-                String nama = msg.getMessage().getFrom().getFirstName();
-                String id = msg.getMessage().getFrom().getId().toString();
-                String [] data = {
-                        nama,
-                        id
-                };
-                simpan(data);
-                String pesan = "Terimakasih telah mendaftar ";
-//                msg.getChatMember();
-                msg.getMessage().getChatId();
-                message.setChatId(msg.getMessage().getChatId());
-                message.setText(pesan);
-            } catch (Exception e) {
-                System.out.println("Pesan gagal dikirim: " + e);
-            }
-        }
 
 
 //      JANGAN DIHAPUS/KOMEN UNTUK NGIRIM PESAN; SETTEXT UNTUK SETUP PESAN
@@ -186,6 +185,8 @@ public class botClassTA extends TelegramLongPollingBot {
 //        return null;
 
     }
+
+
 
     public void simpan(String [] data) {
         String nama = data[0], id = data[1];
