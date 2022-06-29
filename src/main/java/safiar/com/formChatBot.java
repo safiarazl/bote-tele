@@ -32,8 +32,6 @@ public class formChatBot extends javax.swing.JFrame {
     Connection Con;
     ResultSet RsBrg;
     Statement stm;
-    Boolean edit = false;
-    private Object[][] dataTable = null;
 
     /**
      * Creates new form formChatBot
@@ -43,6 +41,17 @@ public class formChatBot extends javax.swing.JFrame {
         cekKoneksi();
         open_db();
         pilih_user();
+    }
+
+    public void cekKoneksi(){
+        try{
+            URL url = new URL("https://google.com");
+            URLConnection conn= url.openConnection();
+            conn.connect();
+            lbStstus.setText("Status : Terhubung");
+        }catch(Exception e){
+            lbStstus.setText("Status : Terputus");
+        }
     }
 
     private void open_db() {
@@ -76,7 +85,7 @@ public class formChatBot extends javax.swing.JFrame {
             RsBrg = stm.executeQuery("select * from user where name = '"+xid+"'");
             RsBrg.beforeFirst();
             while (RsBrg.next()) {
-                txtUser.setText(RsBrg.getString("id"));
+                txtUserID.setText(RsBrg.getString("id"));
             }
             RsBrg.close();
         } catch (SQLException e) {
@@ -94,25 +103,22 @@ public class formChatBot extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tChat = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         cmbUser = new javax.swing.JComboBox<>();
-        tPesan = new javax.swing.JTextField();
+        txtUserID = new javax.swing.JLabel();
+        txtPesan = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtChat = new javax.swing.JTextArea();
+        lbStstus = new javax.swing.JLabel();
         bKirim = new javax.swing.JButton();
         bBatal = new javax.swing.JButton();
-        lbStatus = new javax.swing.JLabel();
-        txtUser = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tChat.setColumns(20);
-        tChat.setRows(5);
-        jScrollPane1.setViewportView(tChat);
-
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel1.setText("Chat Bot");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Bot Chat");
 
         cmbUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih User-" }));
         cmbUser.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +127,26 @@ public class formChatBot extends javax.swing.JFrame {
             }
         });
 
+        txtUserID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUserID.setText("User ID");
+
+        txtPesan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesanActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Pesan");
+
+        jLabel4.setText("Chat");
+
+        txtChat.setColumns(20);
+        txtChat.setRows(5);
+        jScrollPane1.setViewportView(txtChat);
+
+        lbStstus.setText("Status :");
+
+        bKirim.setBackground(new java.awt.Color(102, 204, 255));
         bKirim.setText("Kirim");
         bKirim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,23 +154,12 @@ public class formChatBot extends javax.swing.JFrame {
             }
         });
 
+        bBatal.setBackground(new java.awt.Color(255, 102, 102));
+        bBatal.setForeground(new java.awt.Color(255, 255, 255));
         bBatal.setText("Batal");
         bBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bBatalActionPerformed(evt);
-            }
-        });
-
-        lbStatus.setText("Status : ");
-
-        txtUser.setText("Nama");
-        txtUser.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                txtUserAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -153,69 +168,76 @@ public class formChatBot extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bBatal)
+                        .addGap(118, 118, 118)
+                        .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(bKirim))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 618, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtUser))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator1)
-                            .addComponent(tPesan, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lbStatus, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(txtUserID))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbStstus)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(bBatal)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(bKirim))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtPesan)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tPesan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bKirim, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(lbStatus)
+                    .addComponent(txtUserID)
+                    .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addComponent(jLabel3)
+                .addGap(1, 1, 1)
+                .addComponent(txtPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bKirim)
+                    .addComponent(bBatal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(lbStstus)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKirimActionPerformed
-        // TODO add your handling code here:
-        BotChat kirim = new BotChat();
-        kirim.kirimPesan(txtUser.getText(), tPesan.getText());
-//        tChat.append("Pesan Ke "+txtUser.getText()+ " : " + tPesan.getText()+ "\n" );
-        tChat.append(kirim.getBotUsername()+ " : " + tPesan.getText()+ "\n" );
-        tPesan.setText("");
-    }//GEN-LAST:event_bKirimActionPerformed
-
     private void cmbUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUserActionPerformed
         // TODO add your handling code here:
         user_terpilih(cmbUser.getSelectedItem().toString());
     }//GEN-LAST:event_cmbUserActionPerformed
 
-    private void txtUserAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtUserAncestorAdded
+    private void txtPesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserAncestorAdded
+    }//GEN-LAST:event_txtPesanActionPerformed
+
+    private void bKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKirimActionPerformed
+        BotChat kirim = new BotChat();
+        kirim.kirimPesan(txtUserID.getText(), txtPesan.getText());
+        txtChat.append(kirim.getBotUsername()+ " : " + txtPesan.getText()+ "\n" );
+        txtPesan.setText("");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bKirimActionPerformed
 
     private void bBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBatalActionPerformed
         // TODO add your handling code here:
@@ -253,39 +275,21 @@ public class formChatBot extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new formChatBot().setVisible(true);
-//                BasicConfigurator.configure();
-//                try {
-//                    TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-//                    telegramBotsApi.registerBot(new BotChat());
-//                } catch (TelegramApiException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
     }
-    
-    public void cekKoneksi(){
-        try{
-            URL url = new URL("https://google.com");
-            URLConnection conn= url.openConnection();
-            conn.connect();
-            lbStatus.setText("Status : Terhubung");
-        }catch(Exception e){
-            lbStatus.setText("Status : Terputus");
-        }
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bBatal;
     private javax.swing.JButton bKirim;
     private javax.swing.JComboBox<String> cmbUser;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lbStatus;
-    public static javax.swing.JTextArea tChat;
-    private javax.swing.JTextField tPesan;
-    private javax.swing.JLabel txtUser;
+    private javax.swing.JLabel lbStstus;
+    static javax.swing.JTextArea txtChat;
+    private javax.swing.JTextField txtPesan;
+    private javax.swing.JLabel txtUserID;
     // End of variables declaration//GEN-END:variables
 }
