@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Safiar
+ * @author ASUS VivoBook
  */
 public class KoneksiMysql {
     String url, usr, pwd, dbn;
@@ -40,8 +40,8 @@ public class KoneksiMysql {
         }
         return con;
     }
-//    public static void main(String[] args) {
-//        KoneksiMysql kon = new KoneksiMysql("trade");
-//        Connection c = kon.getConnection();
-//    }
+    public static void main(String[] args) {
+        KoneksiMysql kon = new KoneksiMysql("bot-tele");
+        Connection c = kon.getConnection();
+    }
 }

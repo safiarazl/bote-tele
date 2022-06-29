@@ -2,7 +2,6 @@ package safiar.com;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -38,13 +37,10 @@ public class BotChat extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        //ambil history pesan
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message_text = update.getMessage().getText();
             String user_name = update.getMessage().getChat().getFirstName();
-            System.out.println("ini isi nilai user_id: " + user_name);
-            System.out.println("ini isi nilai message_text: " + message_text);
-            formChatBot.tChat.append(user_name + ": " + message_text + "\n");
+            formChatBot.txtChat.append(user_name + ": " + message_text + "\n");
         }
     }
 }

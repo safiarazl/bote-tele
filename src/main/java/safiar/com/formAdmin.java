@@ -4,9 +4,18 @@
  */
 package safiar.com;
 
+import org.apache.log4j.BasicConfigurator;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+
+import javax.swing.*;
+import javax.swing.text.View;
+import java.awt.event.ActionEvent;
+
 /**
  *
- * @author Safiar
+ * @author ASUS VivoBook
  */
 public class formAdmin extends javax.swing.JFrame {
 
@@ -26,36 +35,17 @@ public class formAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jDialog2 = new javax.swing.JDialog();
-        bBroadcast = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        bMember = new javax.swing.JButton();
-        bAuto = new javax.swing.JButton();
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
-        jDialog2.getContentPane().setLayout(jDialog2Layout);
-        jDialog2Layout.setHorizontalGroup(
-            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog2Layout.setVerticalGroup(
-            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        bBroadcast = new javax.swing.JButton();
+        bChat = new javax.swing.JButton();
+        bMembers = new javax.swing.JButton();
+        bHistory = new javax.swing.JButton();
+        bKeluar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
+        jLabel1.setText("Telegram Bot");
 
         bBroadcast.setText("Broadcast");
         bBroadcast.addActionListener(new java.awt.event.ActionListener() {
@@ -64,22 +54,28 @@ public class formAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
-        jLabel1.setText("TA Telegram Bot By.");
-
-        bMember.setText("Member");
-        bMember.addActionListener(new java.awt.event.ActionListener() {
+        bChat.setText("Chat");
+        bChat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bMemberActionPerformed(evt);
+                bChatActionPerformed(evt);
             }
         });
 
-        bAuto.setText("Auto");
-        bAuto.setMaximumSize(new java.awt.Dimension(75, 22));
-        bAuto.setMinimumSize(new java.awt.Dimension(75, 22));
-        bAuto.addActionListener(new java.awt.event.ActionListener() {
+        bMembers.setText("Members");
+        bMembers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAutoActionPerformed(evt);
+                bMembersActionPerformed(evt);
+            }
+        });
+
+        bHistory.setText("History");
+
+        bKeluar.setBackground(new java.awt.Color(255, 102, 102));
+        bKeluar.setForeground(new java.awt.Color(255, 255, 255));
+        bKeluar.setText("LogOut");
+        bKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bKeluarActionPerformed(evt);
             }
         });
 
@@ -87,47 +83,62 @@ public class formAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bMember)
-                        .addGap(18, 18, 18)
-                        .addComponent(bBroadcast, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bAuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(161, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(bChat, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBroadcast)
+                    .addComponent(bMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(160, 160, 160))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {bBroadcast, bChat, bHistory, bKeluar, bMembers});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bBroadcast, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bMember, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                .addGap(32, 32, 32)
+                .addComponent(bBroadcast, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bChat, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bMembers, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {bBroadcast, bChat, bHistory, bKeluar, bMembers});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKeluarActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_bKeluarActionPerformed
+
+    private void bMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMembersActionPerformed
+        // TODO add your handling code here:
+        new formMember().setVisible(true);
+    }//GEN-LAST:event_bMembersActionPerformed
+
+    private void bChatActionPerformed(ActionEvent evt) {//GEN-FIRST:event_bChatActionPerformed
+        // TODO add your handling code here:
+        new formChatBot().setVisible(true);
+    }//GEN-LAST:event_bChatActionPerformed
 
     private void bBroadcastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBroadcastActionPerformed
         // TODO add your handling code here:
         new formBroadcast().setVisible(true);
     }//GEN-LAST:event_bBroadcastActionPerformed
-
-    private void bAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bAutoActionPerformed
-
-    private void bMemberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMemberActionPerformed
-        // TODO add your handling code here:
-        new formMember().setVisible(true);
-    }//GEN-LAST:event_bMemberActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,16 +171,25 @@ public class formAdmin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new formAdmin().setVisible(true);
+                BasicConfigurator.configure();
+                try {
+                    TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+                    telegramBotsApi.registerBot(new BotMain());
+                    telegramBotsApi.registerBot(new BotChat());
+                    telegramBotsApi.registerBot(new BotBroadcast());
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAuto;
     private javax.swing.JButton bBroadcast;
-    private javax.swing.JButton bMember;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JDialog jDialog2;
+    private javax.swing.JButton bChat;
+    private javax.swing.JButton bHistory;
+    private javax.swing.JButton bKeluar;
+    private javax.swing.JButton bMembers;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

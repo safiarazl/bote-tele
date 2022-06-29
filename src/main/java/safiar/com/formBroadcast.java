@@ -4,20 +4,15 @@
  */
 package safiar.com;
 
-import org.apache.log4j.BasicConfigurator;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.*;
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 /**
  *
- * @author Safiar
+ * @author ASUS VivoBook
  */
 public class formBroadcast extends javax.swing.JFrame {
 
@@ -25,12 +20,23 @@ public class formBroadcast extends javax.swing.JFrame {
      * Creates new form formBroadcast
      */
     Connection Con;
-    ResultSet RsBrg;
     Statement stm;
-    public sendBroadcast brdcst;
+
 
     public formBroadcast() {
         initComponents();
+        cekKoneksi();
+    }
+
+    public void cekKoneksi(){
+        try{
+            URL url = new URL("https://google.com");
+            URLConnection conn= url.openConnection();
+            conn.connect();
+            lbStatus.setText("Status : Terhubung");
+        }catch(Exception e){
+            lbStatus.setText("Status : Terputus");
+        }
     }
 
     /**
@@ -44,17 +50,24 @@ public class formBroadcast extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        taPesan = new javax.swing.JTextArea();
+        taHistory = new javax.swing.JTextArea();
         bKirim = new javax.swing.JButton();
         bBatal = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        taPesan = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lbStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Send Broadcast");
 
-        taPesan.setColumns(20);
-        taPesan.setRows(5);
-        jScrollPane1.setViewportView(taPesan);
+        taHistory.setEditable(false);
+        taHistory.setColumns(20);
+        taHistory.setRows(5);
+        jScrollPane1.setViewportView(taHistory);
 
         bKirim.setText("Kirim");
         bKirim.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +76,8 @@ public class formBroadcast extends javax.swing.JFrame {
             }
         });
 
+        bBatal.setBackground(new java.awt.Color(255, 102, 102));
+        bBatal.setForeground(new java.awt.Color(255, 255, 255));
         bBatal.setText("Batal");
         bBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,37 +85,62 @@ public class formBroadcast extends javax.swing.JFrame {
             }
         });
 
+        taPesan.setColumns(20);
+        taPesan.setRows(5);
+        jScrollPane2.setViewportView(taPesan);
+
+        jLabel2.setText("Pesan");
+
+        jLabel3.setText("History");
+
+        lbStatus.setText("Status :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(jLabel1)
-                .addContainerGap(168, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(bBatal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bKirim)
-                .addGap(21, 21, 21))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bBatal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bKirim)
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbStatus)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(95, 95, 95)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 30, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bKirim)
-                    .addComponent(bBatal))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(bKirim, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbStatus)
+                .addContainerGap())
         );
 
         pack();
@@ -108,23 +148,15 @@ public class formBroadcast extends javax.swing.JFrame {
 
     private void bKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKirimActionPerformed
         // TODO add your handling code here:
-        sendBroadcast send = new sendBroadcast();
-//        System.out.println(cbID());
+        BotMain send = new BotMain();
         send.sendPesanBroadcast(taPesan.getText());
-        taPesan.setText(" ");
+        taHistory.append(send.getBotUsername()+ " : " + taPesan.getText()+ "\n" );
+        taPesan.setText("");
     }//GEN-LAST:event_bKirimActionPerformed
-
-    private void cekInet(){
-        try{
-            URL url = new URL("a");
-        } catch (){
-
-        }
-    }
 
     private void bBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBatalActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_bBatalActionPerformed
 
     /**
@@ -158,13 +190,6 @@ public class formBroadcast extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new formBroadcast().setVisible(true);
-                BasicConfigurator.configure();
-                try{
-                    TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-                    telegramBotsApi.registerBot(new sendBroadcast());
-                } catch (TelegramApiException e){
-                    e.printStackTrace();
-                }
             }
         });
     }
@@ -173,7 +198,12 @@ public class formBroadcast extends javax.swing.JFrame {
     private javax.swing.JButton bBatal;
     private javax.swing.JButton bKirim;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTextArea taPesan;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbStatus;
+    static javax.swing.JTextArea taHistory;
+    private javax.swing.JTextArea taPesan;
     // End of variables declaration//GEN-END:variables
 }

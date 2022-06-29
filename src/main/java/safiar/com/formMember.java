@@ -70,14 +70,6 @@ public class formMember extends javax.swing.JFrame {
 //        return null;
         
     }
-    private void hapus(String id){
-        try{
-            String zsql="DELETE FROM `user` WHERE `id` = '" + id + "'";
-            stm.executeUpdate(zsql);
-        }catch(SQLException e){
-            System.out.println("Error : "+e);
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
