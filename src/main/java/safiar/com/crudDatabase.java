@@ -42,43 +42,12 @@ public class crudDatabase {
 //                stm.executeQuery("INSERT into user VALUES('"+data[0]+"','"+data[1]+"')");
                 stm.executeUpdate("INSERT into user VALUES('"+data[0]+"','"+data[1]+"')");
             }
-            baca_data();
+//            baca_data();
 //            formMember.baca_data();
         } catch(SQLException e){
 //            JOptionPane.showMessageDialog(null, e);
             System.out.println(e);
         }
     }
-    
-    public Object baca_data(){
-        try {
-            stm = Con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-            
-            RsBrg = stm.executeQuery("select * from user");
 
-            ResultSetMetaData meta;
-            meta = RsBrg.getMetaData();
-            int col = meta.getColumnCount();
-            int baris = 0;
-            while (RsBrg.next()) {
-                baris = RsBrg.getRow();
-            }
-
-            dataTable = new Object[baris][col];
-            int x = 0;
-            RsBrg.beforeFirst();
-            while (RsBrg.next()) {
-                dataTable[x][0] = RsBrg.getString("nama");
-                dataTable[x][1] = RsBrg.getString("id");
-                x++;
-            }
-            return dataTable;
-        } catch (SQLException e) {
-            System.out.println(e);
-            return e;
-            
-        }
-//        return null;
-        
-    }
 }

@@ -7,7 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +15,55 @@ import java.util.List;
 public class BotMain extends TelegramLongPollingBot {
 
     Statement stm;
-    Connection Con;
-    ResultSet RsBrg;
     Boolean edit = false;
+    ResultSet RsBrg;
     private Object[][] dataTable = null;
-    KoneksiMysql kon = new KoneksiMysql("localhost","root","","bot-tele");
     SendMessage message=new SendMessage();
+    KoneksiMysql kon = new KoneksiMysql("bot-tele");
+    Connection Con = kon.getConnection();
+
+
+
     public BotMain(){
         System.out.println("ini isi baca data " + cbID());
         System.out.println("ini isi baca data " + cekMember(1096439751));
+//        String [] data = {
+//                "Safiar",
+//                "931580932"
+//        };
+//        simpan(data);
+    }
+
+    public Object baca_data(){
+        try {
+            stm = Con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+
+            RsBrg = stm.executeQuery("select * from user");
+
+            ResultSetMetaData meta;
+            meta = RsBrg.getMetaData();
+            int col = meta.getColumnCount();
+            int baris = 0;
+            while (RsBrg.next()) {
+                baris = RsBrg.getRow();
+            }
+
+            dataTable = new Object[baris][col];
+            int x = 0;
+            RsBrg.beforeFirst();
+            while (RsBrg.next()) {
+                dataTable[x][0] = RsBrg.getString("nama");
+                dataTable[x][1] = RsBrg.getString("id");
+                x++;
+            }
+            return dataTable;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return e;
+
+        }
+//        return null;
+
     }
 
     //Fungsi Chat
@@ -80,13 +119,12 @@ public class BotMain extends TelegramLongPollingBot {
     public void simpan(String [] data) {
         String nama = data[0], id = data[1];
         try{
-            if(edit==true){
-                System.out.println("masuk update botClass");
-                stm.executeUpdate("update user set nama='"+nama+"',id='"+id+"' where id='" + id + "'");
-            } else {
-                System.out.println("masuk insert botClass");
-                stm.executeUpdate("INSERT into user VALUES('"+nama+"','"+id+"')");
-            }
+            System.out.println("masuk insert botClass");
+            String query = "INSERT into user VALUES('"+nama+"','"+id+"')";
+            stm = Con.createStatement();
+            stm.executeUpdate(query);
+            baca_data();
+
         } catch(SQLException e){
             System.out.println("Error botClass 1#: " + e);
         }
@@ -150,10 +188,6 @@ public class BotMain extends TelegramLongPollingBot {
 //        System.out.println("ini ISINILAI" + update.getChatMember().getChat().getFirstName());
             System.out.println("ini isi nilai command: " + command);
             switch (command) {
-                case "daftar" -> {
-                    message.setText(daftar);
-                    formAdmin.taHistory.append(getBotUsername()+ " : " + daftar + "\n" );
-                }
                 case "start" -> {
                     String pesan = "BEEBOoo.. 0o0 Halo Nama Saya BotTele_Rahadian-0.1 ðŸ¤–";
                     message.setText(pesan);
@@ -169,25 +203,6 @@ public class BotMain extends TelegramLongPollingBot {
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
                 }
-                case "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar" -> {
-                    try {
-                        String nama = update.getMessage().getFrom().getFirstName();
-                        String id = update.getMessage().getFrom().getId().toString();
-                        String [] data = {
-                                nama,
-                                id
-                        };
-                        simpan(data);
-                        String pesan = "Terimakasih telah mendaftar ";
-//                msg.getChatMember();
-                        formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
-                        update.getMessage().getChatId();
-                        message.setChatId(update.getMessage().getChatId());
-                        message.setText(pesan);
-                    } catch (Exception e) {
-                        System.out.println("Pesan gagal dikirim: " + e);
-                    }
-                }
 //                default -> {
 //                    System.out.println(update.getMessage() + "Saya tidak mengerti perintah yang anda tulis");
 //                    message.setText("Saya tidak mengerti perintah yang anda tulis");
@@ -201,6 +216,22 @@ public class BotMain extends TelegramLongPollingBot {
             }
         } else {
             switch (command) {
+                case "daftar" -> {
+                    message.setText(daftar);
+                    formAdmin.taHistory.append(getBotUsername()+ " : " + daftar + "\n" );
+                }
+                case "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar" -> {
+                        String nama = update.getMessage().getFrom().getFirstName();
+                        String id = update.getMessage().getFrom().getId().toString();
+                        String [] data = {
+                                nama,
+                                id
+                        };
+                        simpan(data);
+                        String pesan = "Terimakasih telah mendaftar ";
+                        formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
+                        message.setText(pesan);
+                }
                 default -> {
                     String pesan = "daftar dulu";
                     message.setText(pesan);
