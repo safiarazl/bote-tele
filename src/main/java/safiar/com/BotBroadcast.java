@@ -66,7 +66,6 @@ public class BotBroadcast  extends TelegramLongPollingBot {
             String user_name = update.getMessage().getChat().getFirstName();
             System.out.println("ini isi nilai user_id: " + user_name);
             System.out.println("ini isi nilai message_text: " + message_text);
-            formBroadcast.taHistory.append(user_name + ": " + message_text + "\n");
         }
     }
 }

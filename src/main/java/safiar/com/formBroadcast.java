@@ -49,25 +49,17 @@ public class formBroadcast extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taHistory = new javax.swing.JTextArea();
         bKirim = new javax.swing.JButton();
         bBatal = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         taPesan = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Send Broadcast");
-
-        taHistory.setEditable(false);
-        taHistory.setColumns(20);
-        taHistory.setRows(5);
-        jScrollPane1.setViewportView(taHistory);
 
         bKirim.setText("Kirim");
         bKirim.addActionListener(new java.awt.event.ActionListener() {
@@ -91,8 +83,6 @@ public class formBroadcast extends javax.swing.JFrame {
 
         jLabel2.setText("Pesan");
 
-        jLabel3.setText("History");
-
         lbStatus.setText("Status :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,10 +101,8 @@ public class formBroadcast extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbStatus)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addGap(95, 95, 95)))
@@ -129,12 +117,8 @@ public class formBroadcast extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bKirim, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -150,7 +134,7 @@ public class formBroadcast extends javax.swing.JFrame {
         // TODO add your handling code here:
         BotMain send = new BotMain();
         send.sendPesanBroadcast(taPesan.getText());
-        taHistory.append(send.getBotUsername()+ " : " + taPesan.getText()+ "\n" );
+        formAdmin.taAdmin.append("(Broadcast) " + send.getBotUsername() + ": " + taPesan.getText() + "\n");
         taPesan.setText("");
     }//GEN-LAST:event_bKirimActionPerformed
 
@@ -199,11 +183,8 @@ public class formBroadcast extends javax.swing.JFrame {
     private javax.swing.JButton bKirim;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbStatus;
-    static javax.swing.JTextArea taHistory;
-    private javax.swing.JTextArea taPesan;
+    static javax.swing.JTextArea taPesan;
     // End of variables declaration//GEN-END:variables
 }

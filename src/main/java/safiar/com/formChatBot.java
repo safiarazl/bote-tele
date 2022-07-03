@@ -108,9 +108,6 @@ public class formChatBot extends javax.swing.JFrame {
         txtUserID = new javax.swing.JLabel();
         txtPesan = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtChat = new javax.swing.JTextArea();
         lbStstus = new javax.swing.JLabel();
         bKirim = new javax.swing.JButton();
         bBatal = new javax.swing.JButton();
@@ -137,12 +134,6 @@ public class formChatBot extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Pesan");
-
-        jLabel4.setText("Chat");
-
-        txtChat.setColumns(20);
-        txtChat.setRows(5);
-        jScrollPane1.setViewportView(txtChat);
 
         lbStstus.setText("Status :");
 
@@ -186,11 +177,9 @@ public class formChatBot extends javax.swing.JFrame {
                                     .addComponent(bBatal)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(bKirim))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(txtPesan)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE))))))
+                                    .addComponent(txtPesan, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -205,16 +194,12 @@ public class formChatBot extends javax.swing.JFrame {
                 .addGap(1, 1, 1)
                 .addComponent(jLabel3)
                 .addGap(1, 1, 1)
-                .addComponent(txtPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesan, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bKirim)
                     .addComponent(bBatal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
                 .addComponent(lbStstus)
                 .addContainerGap())
         );
@@ -232,9 +217,9 @@ public class formChatBot extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesanActionPerformed
 
     private void bKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKirimActionPerformed
-        BotChat kirim = new BotChat();
+        BotMain kirim = new BotMain();
         kirim.kirimPesan(txtUserID.getText(), txtPesan.getText());
-        txtChat.append(kirim.getBotUsername()+ " : " + txtPesan.getText()+ "\n" );
+        formAdmin.taAdmin.append("(Private chat) " + kirim.getBotUsername() + ": " + txtPesan.getText() + "\n");
         txtPesan.setText("");
         // TODO add your handling code here:
     }//GEN-LAST:event_bKirimActionPerformed
@@ -285,11 +270,8 @@ public class formChatBot extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbStstus;
-    static javax.swing.JTextArea txtChat;
-    private javax.swing.JTextField txtPesan;
+    static javax.swing.JTextField txtPesan;
     private javax.swing.JLabel txtUserID;
     // End of variables declaration//GEN-END:variables
 }
