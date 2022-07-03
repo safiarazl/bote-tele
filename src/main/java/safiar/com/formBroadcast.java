@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author ASUS VivoBook
+ * @author Safiar
  */
 public class formBroadcast extends javax.swing.JFrame {
 
@@ -56,11 +56,15 @@ public class formBroadcast extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lbStatus = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Kirim pesan broadcast");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Colonna MT", 1, 24)); // NOI18N
         jLabel1.setText("Send Broadcast");
 
+        bKirim.setBackground(new java.awt.Color(51, 255, 0));
+        bKirim.setFont(new java.awt.Font("Colonna MT", 0, 12)); // NOI18N
+        bKirim.setForeground(new java.awt.Color(0, 0, 0));
         bKirim.setText("Kirim");
         bKirim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +73,8 @@ public class formBroadcast extends javax.swing.JFrame {
         });
 
         bBatal.setBackground(new java.awt.Color(255, 102, 102));
-        bBatal.setForeground(new java.awt.Color(255, 255, 255));
+        bBatal.setFont(new java.awt.Font("Colonna MT", 0, 12)); // NOI18N
+        bBatal.setForeground(new java.awt.Color(0, 0, 0));
         bBatal.setText("Batal");
         bBatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,10 +84,13 @@ public class formBroadcast extends javax.swing.JFrame {
 
         taPesan.setColumns(20);
         taPesan.setRows(5);
+        taPesan.setWrapStyleWord(true);
         jScrollPane2.setViewportView(taPesan);
 
+        jLabel2.setFont(new java.awt.Font("Colonna MT", 0, 18)); // NOI18N
         jLabel2.setText("Pesan");
 
+        lbStatus.setFont(new java.awt.Font("Colonna MT", 0, 14)); // NOI18N
         lbStatus.setText("Status :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,7 +100,6 @@ public class formBroadcast extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbStatus)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
@@ -102,7 +109,10 @@ public class formBroadcast extends javax.swing.JFrame {
                             .addComponent(bBatal)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(bKirim)))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(133, 133, 133)
+                        .addComponent(lbStatus)))
                 .addGap(0, 30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,28 +121,28 @@ public class formBroadcast extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lbStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bKirim, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbStatus)
-                .addContainerGap())
+                    .addComponent(bKirim)
+                    .addComponent(bBatal))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bKirimActionPerformed
+    private void bKirimActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         BotMain send = new BotMain();
         send.sendPesanBroadcast(taPesan.getText());
         formAdmin.taHistory.append(send.getBotUsername()+ " : " + taPesan.getText()+ "\n" );
         taPesan.setText("");
-    }//GEN-LAST:event_bKirimActionPerformed
+    }
 
     private void bBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBatalActionPerformed
         // TODO add your handling code here:

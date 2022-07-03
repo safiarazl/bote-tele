@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ASUS VivoBook
+ * @author Safiar
  */
 public class KoneksiMysql {
     String url, usr, pwd, dbn;

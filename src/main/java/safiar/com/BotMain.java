@@ -11,11 +11,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Safiar
+ */
 
 public class BotMain extends TelegramLongPollingBot {
 
     Statement stm;
-    Boolean edit = false;
     ResultSet RsBrg;
     private Object[][] dataTable = null;
     SendMessage message=new SendMessage();
@@ -25,8 +28,9 @@ public class BotMain extends TelegramLongPollingBot {
 
 
     public BotMain(){
-        System.out.println("ini isi baca data " + cbID());
-        System.out.println("ini isi baca data " + cekMember(1096439751));
+        //contructor untuk debugging
+//        System.out.println("ini isi baca data " + cbID());
+//        System.out.println("ini isi baca data " + cekMember(1096439751));
 //        String [] data = {
 //                "Safiar",
 //                "931580932"
@@ -62,11 +66,10 @@ public class BotMain extends TelegramLongPollingBot {
             return e;
 
         }
-//        return null;
 
     }
 
-    //Fungsi Chat
+    //Fungsi kirim pesan private
     public void kirimPesan(String id, String pesan) {
         SendMessage message = new SendMessage();
         message.setChatId(id);
@@ -86,7 +89,7 @@ public class BotMain extends TelegramLongPollingBot {
     }
 
 
-    //Fungsi Broadcsast
+    //Fungsi kirim pesan Broadcsast
     public void sendPesanBroadcast(String pesan){
         for (int i = 0; i < (cbID().size()); i++) {
             try {
@@ -180,7 +183,6 @@ public class BotMain extends TelegramLongPollingBot {
             SendMessage message=new SendMessage();
             message.setChatId(update.getMessage().getChatId());
             //______________________________________________Command_________________________________________//
-            System.out.println("ini isi nilai command: " + command);
             switch (command) {
                 case "start" -> {
                     String pesan = "HALO SAYA BOT UNTUK TUGAS AKHIR PBO";
@@ -212,8 +214,7 @@ public class BotMain extends TelegramLongPollingBot {
             try {
                 execute(message);
             } catch (TelegramApiException e) {
-                System.out.println("Pesan gagal dikirim: " + e);
-                System.out.println("Error botClass 2#: " + e);
+                System.out.println("gagal dikirim (if sudah daftar): " + e);
             }
         } else {
             switch (command) {
@@ -242,8 +243,7 @@ public class BotMain extends TelegramLongPollingBot {
             try {
                 execute(message);
             } catch (TelegramApiException e) {
-                System.out.println("Pesan gagal dikirim: " + e);
-                System.out.println("Error botClass 2#: " + e);
+                System.out.println("gagal dikirim (else belum daftar): " + e);
             }
         }
         }

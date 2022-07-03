@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author ASUS VivoBook
+ * @author Safiar
  */
 public class formChatBot extends javax.swing.JFrame {
 
@@ -112,11 +112,13 @@ public class formChatBot extends javax.swing.JFrame {
         bKirim = new javax.swing.JButton();
         bBatal = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Kirim pesan private");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Colonna MT", 1, 24)); // NOI18N
         jLabel1.setText("Bot Chat");
 
+        cmbUser.setFont(new java.awt.Font("Colonna MT", 0, 14)); // NOI18N
         cmbUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Pilih User-" }));
         cmbUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,7 +126,7 @@ public class formChatBot extends javax.swing.JFrame {
             }
         });
 
-        txtUserID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUserID.setFont(new java.awt.Font("Colonna MT", 0, 14)); // NOI18N
         txtUserID.setText("User ID");
 
         txtPesan.addActionListener(new java.awt.event.ActionListener() {
@@ -133,11 +135,15 @@ public class formChatBot extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Colonna MT", 0, 14)); // NOI18N
         jLabel3.setText("Pesan");
 
+        lbStstus.setFont(new java.awt.Font("Colonna MT", 0, 14)); // NOI18N
         lbStstus.setText("Status :");
 
-        bKirim.setBackground(new java.awt.Color(102, 204, 255));
+        bKirim.setBackground(new java.awt.Color(0, 255, 0));
+        bKirim.setFont(new java.awt.Font("Colonna MT", 0, 12)); // NOI18N
+        bKirim.setForeground(new java.awt.Color(0, 0, 0));
         bKirim.setText("Kirim");
         bKirim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +152,7 @@ public class formChatBot extends javax.swing.JFrame {
         });
 
         bBatal.setBackground(new java.awt.Color(255, 102, 102));
+        bBatal.setFont(new java.awt.Font("Colonna MT", 0, 12)); // NOI18N
         bBatal.setForeground(new java.awt.Color(255, 255, 255));
         bBatal.setText("Batal");
         bBatal.addActionListener(new java.awt.event.ActionListener() {
@@ -161,25 +168,25 @@ public class formChatBot extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
-                        .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtUserID))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bBatal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bKirim))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(txtPesan, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(118, 118, 118)
+                        .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbStstus)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(bBatal)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(bKirim))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txtPesan, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(txtUserID))))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -192,16 +199,16 @@ public class formChatBot extends javax.swing.JFrame {
                     .addComponent(txtUserID)
                     .addComponent(cmbUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(lbStstus))
                 .addGap(1, 1, 1)
                 .addComponent(txtPesan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bKirim)
                     .addComponent(bBatal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbStstus)
-                .addContainerGap())
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
