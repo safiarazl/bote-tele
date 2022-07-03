@@ -156,8 +156,8 @@ public class BotMain extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         String daftar = "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar";
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         //______________________________________________Button Menu_________________________________________//
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
         row.add("start");
@@ -179,12 +179,7 @@ public class BotMain extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText() && cekMember(update.getMessage().getFrom().getId())) {
             SendMessage message=new SendMessage();
             message.setChatId(update.getMessage().getChatId());
-
-
-            //______________________________________________Button Menu_________________________________________//
-
             //______________________________________________Command_________________________________________//
-//        System.out.println("ini ISINILAI" + update.getChatMember().getChat().getFirstName());
             System.out.println("ini isi nilai command: " + command);
             switch (command) {
                 case "start" -> {
