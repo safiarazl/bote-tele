@@ -173,11 +173,10 @@ public class BotMain extends TelegramLongPollingBot {
         String command;
         command = update.getMessage().getText();
         message.setChatId(update.getMessage().getChatId());
+        String message_text = update.getMessage().getText();
+        String user_name = update.getMessage().getChat().getFirstName();
+        formAdmin.taHistory.append(user_name + ": " + message_text + "\n");
         if (update.hasMessage() && update.getMessage().hasText() && cekMember(update.getMessage().getFrom().getId())) {
-            String message_text = update.getMessage().getText();
-            String user_name = update.getMessage().getChat().getFirstName();
-            formAdmin.taHistory.append(user_name + ": " + message_text + "\n");
-
             SendMessage message=new SendMessage();
             message.setChatId(update.getMessage().getChatId());
 
@@ -189,24 +188,31 @@ public class BotMain extends TelegramLongPollingBot {
             System.out.println("ini isi nilai command: " + command);
             switch (command) {
                 case "start" -> {
-                    String pesan = "BEEBOoo.. 0o0 Halo Nama Saya BotTele_Rahadian-0.1 ðŸ¤–";
+                    String pesan = "HALO SAYA BOT UNTUK TUGAS AKHIR PBO";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername() + " : " + pesan + "\n");
                 }
                 case "about" -> {
-                    String pesan = "Saya adalah bot ðŸ¤– yang dibuat oleh Rahadian Kristiyanto ðŸ‘¨â€?ðŸ’» Untuk Memenuhi Tugas Praktikum Akhir Mata Kuliah Pemrograman Berbasi Objek";
+                    String pesan = "Saya dibuat untuk:\nmemenuhi kebutuhan TA PBO\nuntuk kontak developer bisa klik perintah developer";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
                 }
                 case "developer" -> {
-                    String pesan = "Saya dibuat oleh : " + update.getMessage().getFrom().getFirstName() + " " + update.getMessage().getFrom().getLastName() + " NIM : A11.2020.12724";
+                    String pesan = "Kontak developer\n\nSaya dibuat oleh :\nSafiar Azalia Amanullah\nA11.2020.12715";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
                 }
-//                default -> {
-//                    System.out.println(update.getMessage() + "Saya tidak mengerti perintah yang anda tulis");
-//                    message.setText("Saya tidak mengerti perintah yang anda tulis");
-//                }
+                case "daftar" -> {
+                    String pesan = "Anda sudah terdaftar menjadi member kami";
+                    message.setText(pesan);
+                    formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
+                }
+                default -> {
+                    String pesan = "Saya tidak paham maksud anda";
+                    System.out.println(update.getMessage() + pesan);
+                    message.setText(pesan);
+                    formAdmin.taHistory.append(getBotUsername() + " : " + pesan + "\n");
+                }
             }
             try {
                 execute(message);
