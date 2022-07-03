@@ -20,7 +20,6 @@ public class BotMain extends TelegramLongPollingBot {
         message.setText(pesan);
         try {
             execute(message);
-            formChatBot.txtChat.append(pesan + "\n");
         } catch (TelegramApiException e) {
             if (id=="") {
                 javax.swing.JOptionPane.showMessageDialog(null, "Pilih ID");
@@ -90,8 +89,7 @@ public class BotMain extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message_text = update.getMessage().getText();
             String user_name = update.getMessage().getChat().getFirstName();
-            formChatBot.txtChat.append(user_name + ": " + message_text + "\n");
-            formChatBot.txtChat.append(getBotUsername() + ": " + message_text + "\n");
+            formAdmin.taHistory.append(user_name + ": " + message_text + "\n");
         }
     }
 }
