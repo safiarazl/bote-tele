@@ -171,7 +171,7 @@ public class BotMain extends TelegramLongPollingBot {
         replyKeyboardMarkup.setSelective(true);
         message.setReplyMarkup(replyKeyboardMarkup);
         String command;
-        command = update.getMessage().getText();
+        command = update.getMessage().getText().toLowerCase();
         message.setChatId(update.getMessage().getChatId());
         String message_text = update.getMessage().getText();
         String user_name = update.getMessage().getChat().getFirstName();
