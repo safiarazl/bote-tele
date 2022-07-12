@@ -158,7 +158,7 @@ public class BotMain extends TelegramLongPollingBot {
     }
     @Override
     public void onUpdateReceived(Update update) {
-        String daftar = "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar";
+        String daftar = "kirim ulang kalimat dibawah\nsaya setuju untuk mendaftar";
         //______________________________________________Button Menu_________________________________________//
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
@@ -179,7 +179,7 @@ public class BotMain extends TelegramLongPollingBot {
         String message_text = update.getMessage().getText();
         String user_name = update.getMessage().getChat().getFirstName();
         formAdmin.taHistory.append(user_name + ": " + message_text + "\n");
-        if (update.hasMessage() && update.getMessage().hasText() && cekMember(update.getMessage().getFrom().getId())) {
+        if (cekMember(update.getMessage().getFrom().getId())) {
             SendMessage message=new SendMessage();
             message.setChatId(update.getMessage().getChatId());
             //______________________________________________Command_________________________________________//
@@ -222,13 +222,14 @@ public class BotMain extends TelegramLongPollingBot {
                     message.setText(daftar);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + daftar + "\n" );
                 }
-                case "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar" -> {
+                case "saya setuju untuk mendaftar" -> {
                         String nama = update.getMessage().getFrom().getFirstName();
                         String id = update.getMessage().getFrom().getId().toString();
                         String [] data = {
                                 nama,
                                 id
                         };
+                        System.out.println("ini data untuk masuk" + data);
                         simpan(data);
                         String pesan = "Terimakasih telah mendaftar ";
                         formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );

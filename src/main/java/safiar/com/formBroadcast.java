@@ -191,6 +191,6 @@ public class formBroadcast extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbStatus;
-    private javax.swing.JTextArea taPesan;
+    public static javax.swing.JTextArea taPesan;
     // End of variables declaration//GEN-END:variables
 }
