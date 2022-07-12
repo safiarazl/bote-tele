@@ -1,5 +1,6 @@
 package safiar.com;
 
+import org.checkerframework.checker.units.qual.A;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -8,31 +9,25 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author Safiar
+ */
 
 public class BotMain extends TelegramLongPollingBot {
 
     Statement stm;
-    Boolean edit = false;
     ResultSet RsBrg;
     private Object[][] dataTable = null;
     SendMessage message=new SendMessage();
     KoneksiMysql kon = new KoneksiMysql("bot-tele");
     Connection Con = kon.getConnection();
 
-
-
-    public BotMain(){
-        System.out.println("ini isi baca data " + cbID());
-        System.out.println("ini isi baca data " + cekMember(1096439751));
-//        String [] data = {
-//                "Safiar",
-//                "931580932"
-//        };
-//        simpan(data);
-    }
 
     public Object baca_data(){
         try {
@@ -52,7 +47,7 @@ public class BotMain extends TelegramLongPollingBot {
             int x = 0;
             RsBrg.beforeFirst();
             while (RsBrg.next()) {
-                dataTable[x][0] = RsBrg.getString("nama");
+                dataTable[x][0] = RsBrg.getString("name");
                 dataTable[x][1] = RsBrg.getString("id");
                 x++;
             }
@@ -62,11 +57,10 @@ public class BotMain extends TelegramLongPollingBot {
             return e;
 
         }
-//        return null;
 
     }
 
-    //Fungsi Chat
+    //Fungsi kirim pesan private
     public void kirimPesan(String id, String pesan) {
         SendMessage message = new SendMessage();
         message.setChatId(id);
@@ -86,7 +80,7 @@ public class BotMain extends TelegramLongPollingBot {
     }
 
 
-    //Fungsi Broadcsast
+    //Fungsi kirim pesan Broadcsast
     public void sendPesanBroadcast(String pesan){
         for (int i = 0; i < (cbID().size()); i++) {
             try {
@@ -155,9 +149,9 @@ public class BotMain extends TelegramLongPollingBot {
     }
     @Override
     public void onUpdateReceived(Update update) {
-        String daftar = "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar";
-        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        String daftar = "kirim ulang kalimat dibawah\nsaya ingin daftar";
         //______________________________________________Button Menu_________________________________________//
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow row = new KeyboardRow();
         row.add("start");
@@ -171,48 +165,47 @@ public class BotMain extends TelegramLongPollingBot {
         replyKeyboardMarkup.setSelective(true);
         message.setReplyMarkup(replyKeyboardMarkup);
         String command;
-        command = update.getMessage().getText();
+        command = update.getMessage().getText().toLowerCase().trim();
         message.setChatId(update.getMessage().getChatId());
-        if (update.hasMessage() && update.getMessage().hasText() && cekMember(update.getMessage().getFrom().getId())) {
-            String message_text = update.getMessage().getText();
-            String user_name = update.getMessage().getChat().getFirstName();
-            formAdmin.taHistory.append(user_name + ": " + message_text + "\n");
-
+        String message_text = update.getMessage().getText();
+        String user_name = update.getMessage().getChat().getFirstName();
+        formAdmin.taHistory.append(user_name + ": " + message_text + "\n");
+        if (cekMember(update.getMessage().getFrom().getId())) {
             SendMessage message=new SendMessage();
             message.setChatId(update.getMessage().getChatId());
-
-
-            //______________________________________________Button Menu_________________________________________//
-
             //______________________________________________Command_________________________________________//
-//        System.out.println("ini ISINILAI" + update.getChatMember().getChat().getFirstName());
-            System.out.println("ini isi nilai command: " + command);
             switch (command) {
                 case "start" -> {
-                    String pesan = "BEEBOoo.. 0o0 Halo Nama Saya BotTele_Rahadian-0.1 ðŸ¤–";
+                    String pesan = "assalamualaikum";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername() + " : " + pesan + "\n");
                 }
                 case "about" -> {
-                    String pesan = "Saya adalah bot ðŸ¤– yang dibuat oleh Rahadian Kristiyanto ðŸ‘¨â€?ðŸ’» Untuk Memenuhi Tugas Praktikum Akhir Mata Kuliah Pemrograman Berbasi Objek";
+                    String pesan = "pesan abouttttt";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
                 }
                 case "developer" -> {
-                    String pesan = "Saya dibuat oleh : " + update.getMessage().getFrom().getFirstName() + " " + update.getMessage().getFrom().getLastName() + " NIM : A11.2020.12724";
+                    String pesan = "pesan developer";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
                 }
-//                default -> {
-//                    System.out.println(update.getMessage() + "Saya tidak mengerti perintah yang anda tulis");
-//                    message.setText("Saya tidak mengerti perintah yang anda tulis");
-//                }
+                case "daftar" -> {
+                    String pesan = "udah daftar";
+                    message.setText(pesan);
+                    formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
+                }
+                default -> {
+                    String pesan = "gapaham sih";
+                    System.out.println(update.getMessage() + pesan);
+                    message.setText(pesan);
+                    formAdmin.taHistory.append(getBotUsername() + " : " + pesan + "\n");
+                }
             }
             try {
                 execute(message);
             } catch (TelegramApiException e) {
-                System.out.println("Pesan gagal dikirim: " + e);
-                System.out.println("Error botClass 2#: " + e);
+                System.out.println("gagal dikirim (if sudah daftar): " + e);
             }
         } else {
             switch (command) {
@@ -220,20 +213,20 @@ public class BotMain extends TelegramLongPollingBot {
                     message.setText(daftar);
                     formAdmin.taHistory.append(getBotUsername()+ " : " + daftar + "\n" );
                 }
-                case "FORM DAFTAR\nsaya setuju mendaftar.\nkirim ulang pesan ini untuk mendaftar" -> {
-                        String nama = update.getMessage().getFrom().getFirstName();
-                        String id = update.getMessage().getFrom().getId().toString();
-                        String [] data = {
-                                nama,
-                                id
-                        };
-                        simpan(data);
-                        String pesan = "Terimakasih telah mendaftar ";
-                        formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
-                        message.setText(pesan);
+                case "saya ingin daftar" -> {
+                    String nama = update.getMessage().getFrom().getFirstName();
+                    String id = update.getMessage().getFrom().getId().toString();
+                    String [] data = {
+                            nama,
+                            id
+                    };
+                    simpan(data);
+                    String pesan = "Terimakasih telah mendaftar ";
+                    formAdmin.taHistory.append(getBotUsername()+ " : " + pesan + "\n" );
+                    message.setText(pesan);
                 }
                 default -> {
-                    String pesan = "daftar dulu";
+                    String pesan = "daftar sek";
                     message.setText(pesan);
                     formAdmin.taHistory.append(getBotUsername() + " : " + pesan + "\n");
                 }
@@ -241,10 +234,9 @@ public class BotMain extends TelegramLongPollingBot {
             try {
                 execute(message);
             } catch (TelegramApiException e) {
-                System.out.println("Pesan gagal dikirim: " + e);
-                System.out.println("Error botClass 2#: " + e);
+                System.out.println("gagal dikirim (else belum daftar): " + e);
             }
         }
-        }
     }
+}
 
